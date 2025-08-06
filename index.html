@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATR TaskFlow - Gestor de Tareas</title>
+    <title>TaskFlow - Gestor de Tareas</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-light: #3b82f6;
-            --secondary: #1d4ed8;
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
             --success: #4cc9f0;
             --danger: #f72585;
             --warning: #f8961e;
@@ -49,6 +49,7 @@
             padding: 20px;
         }
         
+        /* Pantalla de selección de usuario */
         .login-screen {
             display: flex;
             justify-content: center;
@@ -214,6 +215,7 @@
             justify-content: flex-end;
         }
         
+        /* Estilos existentes de la aplicación */
         header {
             display: flex;
             justify-content: space-between;
@@ -387,7 +389,7 @@
         .form-control:focus {
             outline: none;
             border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
             background-color: white;
         }
         
@@ -672,46 +674,6 @@
             display: inline-block;
         }
         
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: var(--radius-sm);
-            background-color: white;
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.success {
-            border-left: 4px solid var(--success);
-        }
-        
-        .notification.error {
-            border-left: 4px solid var(--danger);
-        }
-        
-        .notification i {
-            font-size: 20px;
-        }
-        
-        .notification.success i {
-            color: var(--success);
-        }
-        
-        .notification.error i {
-            color: var(--danger);
-        }
-        
         @media (max-width: 768px) {
             .user-grid, .task-list, .stats-cards {
                 grid-template-columns: 1fr;
@@ -738,15 +700,17 @@
     </style>
 </head>
 <body>
+    <!-- Pantalla de selección de usuario -->
     <div id="loginScreen" class="login-screen">
         <div class="login-card">
             <div class="login-logo">
                 <i class="fas fa-tasks"></i>
-                <h1>ATR TaskFlow</h1>
+                <h1>TaskFlow</h1>
                 <p>Selecciona tu usuario para comenzar</p>
             </div>
             
             <div class="user-list" id="userLoginList">
+                <!-- Usuarios se mostrarán aquí dinámicamente -->
             </div>
             
             <div class="admin-access">
@@ -757,6 +721,7 @@
         </div>
     </div>
     
+    <!-- Modal para contraseña de admin -->
     <div id="adminPasswordModal" class="password-modal">
         <div class="password-modal-content">
             <h3>Ingresa la contraseña de administrador</h3>
@@ -768,11 +733,12 @@
         </div>
     </div>
     
+    <!-- Aplicación principal (oculta inicialmente) -->
     <div id="appContainer" class="container" style="display: none;">
         <header>
             <div class="logo">
                 <i class="fas fa-tasks"></i>
-                <h1>ATR TaskFlow</h1>
+                <h1>TaskFlow</h1>
             </div>
             <div class="user-badge" onclick="showLoginScreen()">
                 <i class="fas fa-user" id="currentUserIcon"></i>
@@ -794,6 +760,7 @@
                 <div class="tab-indicator" style="width: 33.33%; left: 0;"></div>
             </div>
             
+            <!-- Pestaña de Administrador -->
             <div id="admin" class="tab-content active">
                 <div class="stats-cards">
                     <div class="stat-card">
@@ -861,6 +828,7 @@
                         <select id="taskAssignee" class="form-control">
                             <option value="">Seleccionar usuario o rol</option>
                             <optgroup label="Usuarios">
+                                <!-- Usuarios se llenarán dinámicamente -->
                             </optgroup>
                             <optgroup label="Roles">
                                 <option value="role_maintenance">Todo el equipo de Mantenimiento</option>
@@ -881,6 +849,7 @@
                         </div>
                     </div>
                     <div id="usersList" class="user-grid">
+                        <!-- Usuarios se mostrarán aquí -->
                     </div>
                 </div>
                 
@@ -892,10 +861,12 @@
                         </div>
                     </div>
                     <div id="allTasksList" class="task-list">
+                        <!-- Tareas se mostrarán aquí -->
                     </div>
                 </div>
             </div>
             
+            <!-- Pestaña de Mantenimiento -->
             <div id="maintenance" class="tab-content">
                 <div class="filter-bar">
                     <div class="section-title">
@@ -910,9 +881,11 @@
                 </div>
                 
                 <div id="maintenanceTasks" class="task-list">
+                    <!-- Tareas de mantenimiento se mostrarán aquí -->
                 </div>
             </div>
             
+            <!-- Pestaña de Intendencia -->
             <div id="housekeeping" class="tab-content">
                 <div class="filter-bar">
                     <div class="section-title">
@@ -927,32 +900,35 @@
                 </div>
                 
                 <div id="housekeepingTasks" class="task-list">
+                    <!-- Tareas de intendencia se mostrarán aquí -->
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyASW5nscLZfJUYW4rTL6KkYvde1-Nd1vTs",
-  authDomain: "atr-taskflow.firebaseapp.com",
-  databaseURL: "https://atr-taskflow-default-rtdb.firebaseio.com",
-  projectId: "atr-taskflow",
-  storageBucket: "atr-taskflow.firebasestorage.app",
-  messagingSenderId: "268203148057",
-  appId: "1:268203148057:web:3256ad43c5b2a3c188bb88"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        let users = [];
+        // Datos iniciales (en un proyecto real esto estaría en Firebase)
+        let users = [
+            { id: '1', name: 'Admin', role: 'admin', password: 'AcuaticaTriRacing' }
+        ];
+        
         let tasks = [];
         let currentUser = null;
-
+        
+        // Cargar datos al iniciar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserSelects();
+            renderLoginUsers();
+            updateStats();
+            
+            // Configurar el indicador de pestaña
+            setupTabIndicator();
+            
+            // Generar una contraseña de ejemplo para mostrar
+            document.getElementById('generatedPassword').textContent = generatePassword();
+        });
+        
+        // Generar contraseña aleatoria
         function generatePassword() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let password = '';
@@ -961,139 +937,23 @@
             }
             return password;
         }
-
-        async function loadUsers() {
-            try {
-                const snapshot = await db.collection("users").get();
-                users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                
-                if(!users.some(u => u.role === 'admin')) {
-                    const adminPass = "AcuaticaTriRacing";
-                    await db.collection("users").add({
-                        name: "Admin",
-                        role: "admin",
-                        password: adminPass
-                    });
-                    users.push({ id: "admin", name: "Admin", role: "admin", password: adminPass });
-                }
-                
-                renderLoginUsers();
-                updateUserSelects();
-                renderUsersList();
-                updateStats();
-            } catch (error) {
-                console.error("Error cargando usuarios:", error);
-                showNotification("Error al cargar usuarios", "error");
-            }
-        }
-
-        async function loadTasks() {
-            try {
-                const snapshot = await db.collection("tasks").get();
-                tasks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                renderAllTasks();
-                renderRoleTasks();
-                updateStats();
-            } catch (error) {
-                console.error("Error cargando tareas:", error);
-                showNotification("Error al cargar tareas", "error");
-            }
-        }
-
-        async function createUser() {
-            const name = document.getElementById('userName').value;
-            const role = document.getElementById('userRole').value;
+        
+        // Configurar el indicador de pestaña
+        function setupTabIndicator() {
+            const tabs = document.querySelectorAll('.tab');
+            const indicator = document.querySelector('.tab-indicator');
             
-            if (!name) {
-                showNotification("Por favor ingresa un nombre", "error");
-                return;
-            }
-            
-            const password = generatePassword();
-            
-            try {
-                await db.collection("users").add({
-                    name: name,
-                    role: role,
-                    password: password
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabWidth = 100 / tabs.length;
+                    const index = Array.from(tabs).indexOf(this);
+                    indicator.style.width = `${tabWidth}%`;
+                    indicator.style.left = `${index * tabWidth}%`;
                 });
-                
-                document.getElementById('userName').value = '';
-                document.getElementById('generatedPassword').textContent = password;
-                showNotification(`Usuario ${name} creado correctamente`);
-                await loadUsers();
-            } catch (error) {
-                console.error("Error creando usuario:", error);
-                showNotification("Error al crear usuario", "error");
-            }
+            });
         }
-
-        async function createTask() {
-            const title = document.getElementById('taskTitle').value;
-            const description = document.getElementById('taskDescription').value;
-            const assignee = document.getElementById('taskAssignee').value;
-            
-            if (!title || !assignee) {
-                showNotification('Por favor completa título y asignación', 'error');
-                return;
-            }
-            
-            let assignedTo = [];
-            if (assignee.startsWith('role_')) {
-                const role = assignee.replace('role_', '');
-                assignedTo = users.filter(u => u.role === role).map(u => u.id);
-            } else {
-                assignedTo = [assignee];
-            }
-            
-            try {
-                for (const userId of assignedTo) {
-                    await db.collection("tasks").add({
-                        title: title,
-                        description: description,
-                        assignedTo: userId,
-                        createdAt: new Date().toISOString(),
-                        completed: false,
-                        observations: '',
-                        createdBy: currentUser.id
-                    });
-                }
-                
-                document.getElementById('taskTitle').value = '';
-                document.getElementById('taskDescription').value = '';
-                document.getElementById('taskAssignee').value = '';
-                
-                showNotification(`Tarea asignada a ${assignedTo.length} ${assignedTo.length > 1 ? 'personas' : 'persona'}`);
-                await loadTasks();
-            } catch (error) {
-                console.error("Error creando tarea:", error);
-                showNotification("Error al crear tarea", "error");
-            }
-        }
-
-        async function completeTask(taskId) {
-            document.getElementById(`obs-${taskId}`).style.display = 'block';
-            document.getElementById(`obs-${taskId}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        async function saveObservation(taskId) {
-            const observation = document.getElementById(`obs-text-${taskId}`).value;
-            
-            try {
-                await db.collection("tasks").doc(taskId).update({
-                    observations: observation,
-                    completed: true,
-                    completedAt: new Date().toISOString()
-                });
-                
-                showNotification('Tarea marcada como completada');
-                await loadTasks();
-            } catch (error) {
-                console.error("Error actualizando tarea:", error);
-                showNotification("Error al completar tarea", "error");
-            }
-        }
-
+        
+        // Mostrar usuarios en pantalla de login
         function renderLoginUsers() {
             const container = document.getElementById('userLoginList');
             container.innerHTML = '';
@@ -1124,7 +984,129 @@
                 container.appendChild(userOption);
             });
         }
-
+        
+        // Iniciar sesión como usuario
+        function loginUser(userId) {
+            currentUser = users.find(u => u.id === userId);
+            
+            // Actualizar interfaz
+            document.getElementById('currentUserName').textContent = currentUser.name;
+            document.getElementById('currentUserIcon').className = 
+                currentUser.role === 'admin' ? 'fas fa-user-shield' : 
+                currentUser.role === 'maintenance' ? 'fas fa-tools' : 'fas fa-broom';
+            
+            // Mostrar la aplicación y ocultar login
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'block';
+            
+            // Configurar pestañas según el rol
+            if (currentUser.role === 'maintenance') {
+                openTab('maintenance');
+            } else if (currentUser.role === 'housekeeping') {
+                openTab('housekeeping');
+            } else if (currentUser.role === 'admin') {
+                openTab('admin');
+            }
+            
+            // Actualizar datos
+            renderAllTasks();
+            renderRoleTasks();
+            renderUsersList();
+        }
+        
+        // Mostrar pantalla de login
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('appContainer').style.display = 'none';
+            currentUser = null;
+        }
+        
+        // Mostrar modal de contraseña para admin
+        function showAdminPasswordModal() {
+            document.getElementById('adminPasswordModal').style.display = 'flex';
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminPasswordInput').focus();
+        }
+        
+        // Ocultar modal de contraseña
+        function hideAdminPasswordModal() {
+            document.getElementById('adminPasswordModal').style.display = 'none';
+        }
+        
+        // Verificar contraseña de admin
+        function verifyAdminPassword() {
+            const password = document.getElementById('adminPasswordInput').value;
+            const admin = users.find(u => u.role === 'admin');
+            
+            if (password === admin.password) {
+                hideAdminPasswordModal();
+                loginUser(admin.id);
+            } else {
+                alert('Contraseña incorrecta');
+                document.getElementById('adminPasswordInput').focus();
+            }
+        }
+        
+        // Funciones para cambiar pestañas
+        function openTab(tabName) {
+            // Solo admin puede ver la pestaña de admin
+            if (tabName === 'admin' && currentUser.role !== 'admin') {
+                showAdminPasswordModal();
+                return;
+            }
+            
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`.tab[onclick="openTab('${tabName}')"]`).classList.add('active');
+            
+            // Actualizar el indicador de pestaña
+            const tabIndex = Array.from(tabButtons).findIndex(btn => btn.getAttribute('onclick').includes(tabName));
+            const tabWidth = 100 / tabButtons.length;
+            const indicator = document.querySelector('.tab-indicator');
+            indicator.style.width = `${tabWidth}%`;
+            indicator.style.left = `${tabIndex * tabWidth}%`;
+        }
+        
+        // Crear nuevo usuario
+        function createUser() {
+            const name = document.getElementById('userName').value;
+            const role = document.getElementById('userRole').value;
+            
+            if (!name) {
+                alert('Por favor ingresa un nombre');
+                return;
+            }
+            
+            const password = generatePassword();
+            
+            const newUser = {
+                id: Date.now().toString(),
+                name: name,
+                role: role,
+                password: password
+            };
+            
+            users.push(newUser);
+            updateUserSelects();
+            renderUsersList();
+            renderLoginUsers();
+            document.getElementById('userName').value = '';
+            
+            // Mostrar la contraseña generada
+            document.getElementById('generatedPassword').textContent = password;
+            
+            // Mostrar notificación visual
+            showNotification(`Usuario ${name} creado como ${role === 'maintenance' ? 'Mantenimiento' : 'Intendencia'}`);
+            
+            updateStats();
+        }
+        
+        // Actualizar selects de usuarios
         function updateUserSelects() {
             const userSelects = [
                 document.getElementById('taskAssignee'),
@@ -1132,6 +1114,7 @@
                 document.getElementById('housekeepingUserSelect')
             ];
             
+            // Limpiar opciones de usuarios (excepto la primera opción en algunos casos)
             userSelects.forEach(select => {
                 const optgroups = select.querySelectorAll('optgroup[label="Usuarios"]');
                 optgroups.forEach(optgroup => {
@@ -1142,15 +1125,18 @@
                 });
             });
             
+            // Agregar usuarios a los selects
             users.forEach(user => {
                 if (user.role === 'maintenance' || user.role === 'housekeeping') {
                     const option = document.createElement('option');
                     option.value = user.id;
                     option.textContent = `${user.name}`;
                     
+                    // Agregar al select de asignación de tareas
                     const assignOptgroup = document.querySelector('#taskAssignee optgroup[label="Usuarios"]');
                     assignOptgroup.appendChild(option.cloneNode(true));
                     
+                    // Agregar al select correspondiente según rol
                     if (user.role === 'maintenance') {
                         document.querySelector('#maintenanceUserSelect').appendChild(option.cloneNode(true));
                     } else {
@@ -1159,7 +1145,57 @@
                 }
             });
         }
-
+        
+        // Crear nueva tarea
+        function createTask() {
+            const title = document.getElementById('taskTitle').value;
+            const description = document.getElementById('taskDescription').value;
+            const assignee = document.getElementById('taskAssignee').value;
+            
+            if (!title || !assignee) {
+                showNotification('Por favor completa título y asignación', 'error');
+                return;
+            }
+            
+            let assignedTo = [];
+            if (assignee.startsWith('role_')) {
+                const role = assignee.replace('role_', '');
+                assignedTo = users.filter(u => u.role === role).map(u => u.id);
+            } else {
+                assignedTo = [assignee];
+            }
+            
+            assignedTo.forEach(userId => {
+                const newTask = {
+                    id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+                    title: title,
+                    description: description,
+                    assignedTo: userId,
+                    createdAt: new Date().toISOString(),
+                    completed: false,
+                    observations: '',
+                    createdBy: currentUser.id
+                };
+                
+                tasks.push(newTask);
+            });
+            
+            // Limpiar formulario
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskAssignee').value = '';
+            
+            // Actualizar vistas
+            renderAllTasks();
+            renderRoleTasks();
+            updateStats();
+            
+            // Mostrar notificación
+            const assignedCount = assignedTo.length;
+            showNotification(`Tarea creada y asignada a ${assignedCount} ${assignedCount > 1 ? 'personas' : 'persona'}`);
+        }
+        
+        // Renderizar lista de usuarios
         function renderUsersList() {
             const container = document.getElementById('usersList');
             container.innerHTML = '';
@@ -1194,7 +1230,8 @@
                 container.appendChild(userCard);
             });
         }
-
+        
+        // Renderizar todas las tareas (vista admin)
         function renderAllTasks() {
             const container = document.getElementById('allTasksList');
             container.innerHTML = '';
@@ -1209,6 +1246,7 @@
                 return;
             }
             
+            // Ordenar tareas: pendientes primero, luego completadas
             const sortedTasks = [...tasks].sort((a, b) => {
                 if (a.completed && !b.completed) return 1;
                 if (!a.completed && b.completed) return -1;
@@ -1244,12 +1282,13 @@
                 container.appendChild(taskElement);
             });
         }
-
+        
+        // Renderizar tareas por rol (vistas de mantenimiento e intendencia)
         function renderRoleTasks() {
             renderTasksForRole('maintenance');
             renderTasksForRole('housekeeping');
         }
-
+        
         function renderTasksForRole(role) {
             const container = document.getElementById(`${role}Tasks`);
             container.innerHTML = '';
@@ -1269,6 +1308,7 @@
                 return;
             }
             
+            // Ordenar tareas: pendientes primero
             const sortedTasks = [...roleTasks].sort((a, b) => {
                 if (a.completed && !b.completed) return 1;
                 if (!a.completed && b.completed) return -1;
@@ -1335,17 +1375,18 @@
                 container.appendChild(taskElement);
             });
         }
-
+        
+        // Filtrar tareas por usuario
         function filterMaintenanceTasks() {
             const userId = document.getElementById('maintenanceUserSelect').value;
             filterTasksByUser('maintenance', userId);
         }
-
+        
         function filterHousekeepingTasks() {
             const userId = document.getElementById('housekeepingUserSelect').value;
             filterTasksByUser('housekeeping', userId);
         }
-
+        
         function filterTasksByUser(role, userId) {
             const container = document.getElementById(`${role}Tasks`);
             const tasksToShow = tasks.filter(task => {
@@ -1427,85 +1468,43 @@
                 container.appendChild(taskElement);
             });
         }
-
-        function loginUser(userId) {
-            currentUser = users.find(u => u.id === userId);
-            
-            document.getElementById('currentUserName').textContent = currentUser.name;
-            document.getElementById('currentUserIcon').className = 
-                currentUser.role === 'admin' ? 'fas fa-user-shield' : 
-                currentUser.role === 'maintenance' ? 'fas fa-tools' : 'fas fa-broom';
-            
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('appContainer').style.display = 'block';
-            
-            if (currentUser.role === 'maintenance') {
-                openTab('maintenance');
-            } else if (currentUser.role === 'housekeeping') {
-                openTab('housekeeping');
-            } else if (currentUser.role === 'admin') {
-                openTab('admin');
+        
+        // Completar tarea
+        function completeTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                document.getElementById(`obs-${taskId}`).style.display = 'block';
+                // Desplazar la vista para mostrar el área de observaciones
+                document.getElementById(`obs-${taskId}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
-
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('appContainer').style.display = 'none';
-            currentUser = null;
-        }
-
-        function showAdminPasswordModal() {
-            document.getElementById('adminPasswordModal').style.display = 'flex';
-            document.getElementById('adminPasswordInput').value = '';
-            document.getElementById('adminPasswordInput').focus();
-        }
-
-        function hideAdminPasswordModal() {
-            document.getElementById('adminPasswordModal').style.display = 'none';
-        }
-
-        function verifyAdminPassword() {
-            const password = document.getElementById('adminPasswordInput').value;
-            const admin = users.find(u => u.role === 'admin');
-            
-            if (password === admin.password) {
-                hideAdminPasswordModal();
-                loginUser(admin.id);
-            } else {
-                alert('Contraseña incorrecta');
-                document.getElementById('adminPasswordInput').focus();
+        
+        // Guardar observaciones
+        function saveObservation(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                const observation = document.getElementById(`obs-text-${taskId}`).value;
+                task.observations = observation;
+                task.completed = true;
+                task.completedAt = new Date().toISOString();
+                
+                renderAllTasks();
+                renderRoleTasks();
+                updateStats();
+                
+                showNotification('Tarea marcada como completada');
             }
         }
-
-        function openTab(tabName) {
-            if (tabName === 'admin' && currentUser.role !== 'admin') {
-                showAdminPasswordModal();
-                return;
-            }
-            
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach(button => button.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            document.querySelector(`.tab[onclick="openTab('${tabName}')"]`).classList.add('active');
-            
-            const tabIndex = Array.from(tabButtons).findIndex(btn => btn.getAttribute('onclick').includes(tabName));
-            const tabWidth = 100 / tabButtons.length;
-            const indicator = document.querySelector('.tab-indicator');
-            indicator.style.width = `${tabWidth}%`;
-            indicator.style.left = `${tabIndex * tabWidth}%`;
-        }
-
+        
+        // Actualizar estadísticas
         function updateStats() {
             document.getElementById('totalUsers').textContent = users.filter(u => u.role !== 'admin').length;
             document.getElementById('totalTasks').textContent = tasks.length;
             document.getElementById('completedTasks').textContent = tasks.filter(t => t.completed).length;
             document.getElementById('pendingTasks').textContent = tasks.filter(t => !t.completed).length;
         }
-
+        
+        // Mostrar notificación
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
@@ -1527,26 +1526,51 @@
                 }, 300);
             }, 3000);
         }
-
-        function setupTabIndicator() {
-            const tabs = document.querySelectorAll('.tab');
-            const indicator = document.querySelector('.tab-indicator');
+        
+        // Agregar estilos para notificaciones
+        const notificationStyles = document.createElement('style');
+        notificationStyles.innerHTML = `
+            .notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: var(--radius-sm);
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                transform: translateX(150%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
             
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabWidth = 100 / tabs.length;
-                    const index = Array.from(tabs).indexOf(this);
-                    indicator.style.width = `${tabWidth}%`;
-                    indicator.style.left = `${index * tabWidth}%`;
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            await loadUsers();
-            await loadTasks();
-            setupTabIndicator();
-        });
+            .notification.show {
+                transform: translateX(0);
+            }
+            
+            .notification.success {
+                border-left: 4px solid var(--success);
+            }
+            
+            .notification.error {
+                border-left: 4px solid var(--danger);
+            }
+            
+            .notification i {
+                font-size: 20px;
+            }
+            
+            .notification.success i {
+                color: var(--success);
+            }
+            
+            .notification.error i {
+                color: var(--danger);
+            }
+        `;
+        document.head.appendChild(notificationStyles);
     </script>
 </body>
 </html>
