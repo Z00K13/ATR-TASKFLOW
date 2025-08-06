@@ -936,26 +936,23 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // Configuración de Firebase - REEMPLAZA CON TUS PROPIAS CREDENCIALES
         const firebaseConfig = {
-            apiKey: "AIzaSyABC123XYZ456DEF789GHI",
-            authDomain: "atr-taskflow.firebaseapp.com",
-            projectId: "atr-taskflow",
-            storageBucket: "atr-taskflow.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abc123def456ghi789jkl"
+            apiKey: "AIzaSyASW5nscLZfJUYW4rTL6KkYvde1-Nd1vTs",
+  authDomain: "atr-taskflow.firebaseapp.com",
+  databaseURL: "https://atr-taskflow-default-rtdb.firebaseio.com",
+  projectId: "atr-taskflow",
+  storageBucket: "atr-taskflow.firebasestorage.app",
+  messagingSenderId: "268203148057",
+  appId: "1:268203148057:web:3256ad43c5b2a3c188bb88"
         };
 
-        // Inicializa Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Variables globales
         let users = [];
         let tasks = [];
         let currentUser = null;
 
-        // Función para generar contraseñas aleatorias
         function generatePassword() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let password = '';
@@ -965,13 +962,11 @@
             return password;
         }
 
-        // Cargar usuarios desde Firestore
         async function loadUsers() {
             try {
                 const snapshot = await db.collection("users").get();
                 users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 
-                // Crear usuario admin si no existe
                 if(!users.some(u => u.role === 'admin')) {
                     const adminPass = "AcuaticaTriRacing";
                     await db.collection("users").add({
@@ -992,7 +987,6 @@
             }
         }
 
-        // Cargar tareas desde Firestore
         async function loadTasks() {
             try {
                 const snapshot = await db.collection("tasks").get();
@@ -1006,7 +1000,6 @@
             }
         }
 
-        // Crear un nuevo usuario
         async function createUser() {
             const name = document.getElementById('userName').value;
             const role = document.getElementById('userRole').value;
@@ -1035,7 +1028,6 @@
             }
         }
 
-        // Crear una nueva tarea
         async function createTask() {
             const title = document.getElementById('taskTitle').value;
             const description = document.getElementById('taskDescription').value;
@@ -1079,13 +1071,11 @@
             }
         }
 
-        // Mostrar campo para completar tarea
         async function completeTask(taskId) {
             document.getElementById(`obs-${taskId}`).style.display = 'block';
             document.getElementById(`obs-${taskId}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // Guardar observaciones y marcar tarea como completada
         async function saveObservation(taskId) {
             const observation = document.getElementById(`obs-text-${taskId}`).value;
             
@@ -1104,7 +1094,6 @@
             }
         }
 
-        // Renderizar lista de usuarios para login
         function renderLoginUsers() {
             const container = document.getElementById('userLoginList');
             container.innerHTML = '';
@@ -1136,7 +1125,6 @@
             });
         }
 
-        // Actualizar selects de usuarios
         function updateUserSelects() {
             const userSelects = [
                 document.getElementById('taskAssignee'),
@@ -1172,7 +1160,6 @@
             });
         }
 
-        // Renderizar lista de usuarios en panel admin
         function renderUsersList() {
             const container = document.getElementById('usersList');
             container.innerHTML = '';
@@ -1208,7 +1195,6 @@
             });
         }
 
-        // Renderizar todas las tareas en panel admin
         function renderAllTasks() {
             const container = document.getElementById('allTasksList');
             container.innerHTML = '';
@@ -1259,13 +1245,11 @@
             });
         }
 
-        // Renderizar tareas por rol
         function renderRoleTasks() {
             renderTasksForRole('maintenance');
             renderTasksForRole('housekeeping');
         }
 
-        // Renderizar tareas para un rol específico
         function renderTasksForRole(role) {
             const container = document.getElementById(`${role}Tasks`);
             container.innerHTML = '';
@@ -1352,19 +1336,16 @@
             });
         }
 
-        // Filtrar tareas de mantenimiento por usuario
         function filterMaintenanceTasks() {
             const userId = document.getElementById('maintenanceUserSelect').value;
             filterTasksByUser('maintenance', userId);
         }
 
-        // Filtrar tareas de intendencia por usuario
         function filterHousekeepingTasks() {
             const userId = document.getElementById('housekeepingUserSelect').value;
             filterTasksByUser('housekeeping', userId);
         }
 
-        // Filtrar tareas por usuario
         function filterTasksByUser(role, userId) {
             const container = document.getElementById(`${role}Tasks`);
             const tasksToShow = tasks.filter(task => {
@@ -1447,7 +1428,6 @@
             });
         }
 
-        // Iniciar sesión como usuario
         function loginUser(userId) {
             currentUser = users.find(u => u.id === userId);
             
@@ -1468,26 +1448,22 @@
             }
         }
 
-        // Mostrar pantalla de login
         function showLoginScreen() {
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('appContainer').style.display = 'none';
             currentUser = null;
         }
 
-        // Mostrar modal de contraseña de admin
         function showAdminPasswordModal() {
             document.getElementById('adminPasswordModal').style.display = 'flex';
             document.getElementById('adminPasswordInput').value = '';
             document.getElementById('adminPasswordInput').focus();
         }
 
-        // Ocultar modal de contraseña de admin
         function hideAdminPasswordModal() {
             document.getElementById('adminPasswordModal').style.display = 'none';
         }
 
-        // Verificar contraseña de admin
         function verifyAdminPassword() {
             const password = document.getElementById('adminPasswordInput').value;
             const admin = users.find(u => u.role === 'admin');
@@ -1501,7 +1477,6 @@
             }
         }
 
-        // Cambiar entre pestañas
         function openTab(tabName) {
             if (tabName === 'admin' && currentUser.role !== 'admin') {
                 showAdminPasswordModal();
@@ -1524,7 +1499,6 @@
             indicator.style.left = `${tabIndex * tabWidth}%`;
         }
 
-        // Actualizar estadísticas
         function updateStats() {
             document.getElementById('totalUsers').textContent = users.filter(u => u.role !== 'admin').length;
             document.getElementById('totalTasks').textContent = tasks.length;
@@ -1532,7 +1506,6 @@
             document.getElementById('pendingTasks').textContent = tasks.filter(t => !t.completed).length;
         }
 
-        // Mostrar notificaciones
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
@@ -1555,7 +1528,6 @@
             }, 3000);
         }
 
-        // Configurar indicador de pestañas
         function setupTabIndicator() {
             const tabs = document.querySelectorAll('.tab');
             const indicator = document.querySelector('.tab-indicator');
@@ -1570,7 +1542,6 @@
             });
         }
 
-        // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', async () => {
             await loadUsers();
             await loadTasks();
