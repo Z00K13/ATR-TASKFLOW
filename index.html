@@ -55,7 +55,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 20px;
         }
         
         .login-card {
@@ -106,11 +107,14 @@
             border-radius: var(--radius-sm);
             cursor: pointer;
             transition: var(--transition);
+            border: 2px solid transparent;
         }
         
         .user-option:hover {
             background-color: var(--primary-light);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         
         .user-option:hover .user-avatar {
@@ -166,11 +170,14 @@
             color: var(--primary);
             cursor: pointer;
             transition: var(--transition);
+            font-weight: 500;
         }
         
         .admin-access-btn:hover {
             background-color: var(--primary);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
         
         .password-modal {
@@ -184,6 +191,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         
         .password-modal-content {
@@ -191,7 +199,7 @@
             padding: 30px;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-lg);
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             animation: fadeInUp 0.3s ease;
         }
@@ -207,6 +215,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--light-gray);
             border-radius: var(--radius-sm);
+            font-family: 'Poppins', sans-serif;
         }
         
         .password-modal-buttons {
@@ -253,6 +262,12 @@
             border-radius: 50px;
             box-shadow: var(--shadow-sm);
             cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .user-badge:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
         
         .user-badge i {
@@ -287,6 +302,7 @@
         
         .tab:hover {
             color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
         }
         
         .tab.active {
@@ -414,6 +430,7 @@
         .btn-primary:hover {
             background-color: var(--secondary);
             box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
         
         .btn-success {
@@ -424,6 +441,29 @@
         .btn-success:hover {
             opacity: 0.9;
             box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            opacity: 0.9;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            opacity: 0.9;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
         
         .btn-sm {
@@ -452,30 +492,6 @@
         .user-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-md);
-        }
-        
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 20px;
-        }
-        
-        .user-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-        
-        .user-info p {
-            font-size: 14px;
-            color: var(--gray);
         }
         
         .role-badge {
@@ -520,7 +536,7 @@
         
         .task-card.completed {
             border-left-color: var(--success);
-            opacity: 0.8;
+            opacity: 0.9;
         }
         
         .task-card.completed::after {
@@ -585,6 +601,7 @@
             margin-top: 15px;
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .task-observations {
@@ -623,12 +640,15 @@
             padding: 15px 20px;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .filter-group {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
         
         .stats-cards {
@@ -674,6 +694,315 @@
             display: inline-block;
         }
         
+        /* Estilos para el sistema de fotos */
+        .photo-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--light-gray);
+        }
+        
+        .photo-upload-area {
+            border: 2px dashed var(--light-gray);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .photo-upload-area:hover {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .photo-upload-area i {
+            font-size: 40px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .photo-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(247, 37, 133, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .photos-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .photo-thumbnail {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .photo-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .photo-thumbnail:hover img {
+            transform: scale(1.05);
+        }
+        
+        .photo-download {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(67, 97, 238, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .photo-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .photo-modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: var(--radius-sm);
+        }
+        
+        .photo-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        /* Estilos para el sistema de inventario */
+        .inventory-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+        
+        .inventory-tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+            min-width: 140px;
+        }
+        
+        .inventory-tab:hover {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .inventory-tab.active {
+            color: var(--primary);
+            font-weight: 600;
+            border-bottom-color: var(--primary);
+        }
+        
+        .inventory-content {
+            display: none;
+        }
+        
+        .inventory-content.active {
+            display: block;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+        
+        .stock-low {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .stock-ok {
+            color: var(--success);
+        }
+        
+        .materials-list {
+            margin-top: 15px;
+        }
+        
+        .material-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--light);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .material-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .material-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-input {
+            width: 70px;
+            padding: 5px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            overflow-x: auto;
+            display: block;
+        }
+        
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .table th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        .table tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+        
+        /* Notificaciones mejoradas */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--radius-sm);
+            background-color: white;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-width: 400px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--danger);
+        }
+        
+        .notification i {
+            font-size: 20px;
+        }
+        
+        .notification.success i {
+            color: var(--success);
+        }
+        
+        .notification.error i {
+            color: var(--danger);
+        }
+        
+        /* Mejoras para móviles */
         @media (max-width: 768px) {
             .user-grid, .task-list, .stats-cards {
                 grid-template-columns: 1fr;
@@ -695,6 +1024,78 @@
             
             .login-card {
                 padding: 30px 20px;
+            }
+            
+            .inventory-tabs {
+                flex-direction: column;
+            }
+            
+            .inventory-tab {
+                min-width: 100%;
+            }
+            
+            .material-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .material-quantity {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .task-actions {
+                flex-direction: column;
+            }
+            
+            .task-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .password-modal-buttons {
+                flex-direction: column;
+            }
+            
+            .password-modal-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .table {
+                display: table;
+                width: 100%;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .tab-content {
+                padding: 20px 15px;
+            }
+            
+            .card {
+                padding: 20px 15px;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+            
+            .filter-group select {
+                width: 100%;
             }
         }
     </style>
@@ -733,6 +1134,16 @@
         </div>
     </div>
     
+    <!-- Modal para ver fotos -->
+    <div id="photoModal" class="photo-modal">
+        <div class="photo-modal-content">
+            <button class="photo-modal-close" onclick="hidePhotoModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalPhoto" src="" alt="Foto en tamaño completo">
+        </div>
+    </div>
+    
     <!-- Aplicación principal (oculta inicialmente) -->
     <div id="appContainer" class="container" style="display: none;">
         <header>
@@ -757,7 +1168,10 @@
                 <div class="tab" onclick="openTab('housekeeping')">
                     <i class="fas fa-broom"></i> Intendencia
                 </div>
-                <div class="tab-indicator" style="width: 33.33%; left: 0;"></div>
+                <div class="tab" onclick="openTab('inventory')">
+                    <i class="fas fa-boxes"></i> Inventario
+                </div>
+                <div class="tab-indicator" style="width: 25%; left: 0;"></div>
             </div>
             
             <!-- Pestaña de Administrador -->
@@ -836,6 +1250,17 @@
                             </optgroup>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label">Materiales necesarios</label>
+                        <div class="materials-list" id="taskMaterialsList">
+                            <!-- Los materiales se agregarán aquí -->
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-sm" onclick="addMaterialToTask()">
+                                <i class="fas fa-plus"></i> Agregar Material
+                            </button>
+                        </div>
+                    </div>
                     <button class="btn btn-primary" onclick="createTask()">
                         <i class="fas fa-paper-plane"></i> Asignar Tarea
                     </button>
@@ -903,6 +1328,204 @@
                     <!-- Tareas de intendencia se mostrarán aquí -->
                 </div>
             </div>
+            
+            <!-- Pestaña de Inventario -->
+            <div id="inventory" class="tab-content">
+                <div class="inventory-tabs">
+                    <div class="inventory-tab active" onclick="openInventoryTab('summary')">
+                        <i class="fas fa-chart-bar"></i> Resumen
+                    </div>
+                    <div class="inventory-tab" onclick="openInventoryTab('categories')">
+                        <i class="fas fa-tags"></i> Categorías
+                    </div>
+                    <div class="inventory-tab" onclick="openInventoryTab('items')">
+                        <i class="fas fa-box"></i> Items
+                    </div>
+                    <div class="inventory-tab" onclick="openInventoryTab('movements')">
+                        <i class="fas fa-exchange-alt"></i> Movimientos
+                    </div>
+                </div>
+                
+                <!-- Resumen del Inventario -->
+                <div id="inventory-summary" class="inventory-content active">
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalCategories">0</div>
+                            <div class="stat-label">Categorías</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalItems">0</div>
+                            <div class="stat-label">Items en Inventario</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="lowStockItems">0</div>
+                            <div class="stat-label">Items con Stock Bajo</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="outOfStockItems">0</div>
+                            <div class="stat-label">Items Sin Stock</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h2>Alertas de Stock Bajo</h2>
+                            </div>
+                        </div>
+                        <div id="lowStockAlerts">
+                            <!-- Alertas se mostrarán aquí -->
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-history"></i>
+                                <h2>Movimientos Recientes</h2>
+                            </div>
+                        </div>
+                        <div id="recentMovements">
+                            <!-- Movimientos recientes se mostrarán aquí -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gestión de Categorías -->
+                <div id="inventory-categories" class="inventory-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-tag"></i>
+                                <h2>Gestión de Categorías</h2>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryName" class="form-label">Nombre de la Categoría</label>
+                            <input type="text" id="categoryName" class="form-control" placeholder="Ej: Herramientas Eléctricas">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryDescription" class="form-label">Descripción</label>
+                            <textarea id="categoryDescription" class="form-control" rows="2" placeholder="Descripción de la categoría..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryColor" class="form-label">Color de Identificación</label>
+                            <input type="color" id="categoryColor" class="form-control" value="#4361ee">
+                        </div>
+                        <button class="btn btn-primary" onclick="createCategory()">
+                            <i class="fas fa-plus"></i> Crear Categoría
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-tags"></i>
+                                <h2>Categorías Existentes</h2>
+                            </div>
+                        </div>
+                        <div id="categoriesList">
+                            <!-- Categorías se mostrarán aquí -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gestión de Items -->
+                <div id="inventory-items" class="inventory-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-box"></i>
+                                <h2>Gestión de Items</h2>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemName" class="form-label">Nombre del Item</label>
+                            <input type="text" id="itemName" class="form-control" placeholder="Ej: Taladro Percutor">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemDescription" class="form-label">Descripción</label>
+                            <textarea id="itemDescription" class="form-control" rows="2" placeholder="Descripción del item..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemCategory" class="form-label">Categoría</label>
+                            <select id="itemCategory" class="form-control">
+                                <option value="">Seleccionar categoría</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemSKU" class="form-label">Código SKU</label>
+                            <input type="text" id="itemSKU" class="form-control" placeholder="Código único">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemUnit" class="form-label">Unidad de Medida</label>
+                            <input type="text" id="itemUnit" class="form-control" placeholder="Ej: unidad, pieza, metro">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemStock" class="form-label">Stock Actual</label>
+                            <input type="number" id="itemStock" class="form-control" value="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemMinStock" class="form-label">Stock Mínimo</label>
+                            <input type="number" id="itemMinStock" class="form-control" value="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemLocation" class="form-label">Ubicación</label>
+                            <input type="text" id="itemLocation" class="form-control" placeholder="Ej: Estante A, Nivel 2">
+                        </div>
+                        <button class="btn btn-primary" onclick="createItem()">
+                            <i class="fas fa-plus"></i> Crear Item
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-boxes"></i>
+                                <h2>Items en Inventario</h2>
+                            </div>
+                            <div class="filter-group">
+                                <select id="itemCategoryFilter" class="form-control" onchange="filterItems()" style="width: auto;">
+                                    <option value="">Todas las categorías</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="itemsList">
+                            <!-- Items se mostrarán aquí -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movimientos de Inventario -->
+                <div id="inventory-movements" class="inventory-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="section-title">
+                                <i class="fas fa-exchange-alt"></i>
+                                <h2>Movimientos de Inventario</h2>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Item</th>
+                                    <th>Tipo</th>
+                                    <th>Cantidad</th>
+                                    <th>Stock Anterior</th>
+                                    <th>Stock Nuevo</th>
+                                    <th>Razón</th>
+                                    <th>Usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody id="movementsTable">
+                                <!-- Movimientos se mostrarán aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -913,21 +1536,63 @@
         ];
         
         let tasks = [];
+        let categories = [];
+        let items = [];
+        let inventoryMovements = [];
         let currentUser = null;
+        let taskMaterials = [];
         
         // Cargar datos al iniciar
         document.addEventListener('DOMContentLoaded', function() {
+            loadFromStorage();
             updateUserSelects();
             renderLoginUsers();
             updateStats();
+            updateInventoryStats();
+            renderCategoriesList();
+            renderItemsList();
+            renderMovementsTable();
+            updateCategorySelects();
             
             // Configurar el indicador de pestaña
             setupTabIndicator();
             
             // Generar una contraseña de ejemplo para mostrar
             document.getElementById('generatedPassword').textContent = generatePassword();
+            
+            // Agregar evento para cerrar modales con ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hidePhotoModal();
+                    hideAdminPasswordModal();
+                }
+            });
         });
         
+        // ========== SISTEMA DE PERSISTENCIA ==========
+        function loadFromStorage() {
+            const savedUsers = localStorage.getItem('taskflow_users');
+            const savedTasks = localStorage.getItem('taskflow_tasks');
+            const savedCategories = localStorage.getItem('taskflow_categories');
+            const savedItems = localStorage.getItem('taskflow_items');
+            const savedMovements = localStorage.getItem('taskflow_movements');
+            
+            if (savedUsers) users = JSON.parse(savedUsers);
+            if (savedTasks) tasks = JSON.parse(savedTasks);
+            if (savedCategories) categories = JSON.parse(savedCategories);
+            if (savedItems) items = JSON.parse(savedItems);
+            if (savedMovements) inventoryMovements = JSON.parse(savedMovements);
+        }
+        
+        function saveToStorage() {
+            localStorage.setItem('taskflow_users', JSON.stringify(users));
+            localStorage.setItem('taskflow_tasks', JSON.stringify(tasks));
+            localStorage.setItem('taskflow_categories', JSON.stringify(categories));
+            localStorage.setItem('taskflow_items', JSON.stringify(items));
+            localStorage.setItem('taskflow_movements', JSON.stringify(inventoryMovements));
+        }
+        
+        // ========== FUNCIONES GENERALES ==========
         // Generar contraseña aleatoria
         function generatePassword() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -953,6 +1618,30 @@
             });
         }
         
+        // Mostrar notificación
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // ========== SISTEMA DE USUARIOS ==========
         // Mostrar usuarios en pantalla de login
         function renderLoginUsers() {
             const container = document.getElementById('userLoginList');
@@ -1012,6 +1701,8 @@
             renderAllTasks();
             renderRoleTasks();
             renderUsersList();
+            
+            showNotification(`Bienvenido/a, ${currentUser.name}`);
         }
         
         // Mostrar pantalla de login
@@ -1042,7 +1733,7 @@
                 hideAdminPasswordModal();
                 loginUser(admin.id);
             } else {
-                alert('Contraseña incorrecta');
+                showNotification('Contraseña incorrecta', 'error');
                 document.getElementById('adminPasswordInput').focus();
             }
         }
@@ -1070,15 +1761,20 @@
             const indicator = document.querySelector('.tab-indicator');
             indicator.style.width = `${tabWidth}%`;
             indicator.style.left = `${tabIndex * tabWidth}%`;
+            
+            // Si es la pestaña de inventario, actualizar estadísticas
+            if (tabName === 'inventory') {
+                updateInventoryStats();
+            }
         }
         
         // Crear nuevo usuario
         function createUser() {
-            const name = document.getElementById('userName').value;
+            const name = document.getElementById('userName').value.trim();
             const role = document.getElementById('userRole').value;
             
             if (!name) {
-                alert('Por favor ingresa un nombre');
+                showNotification('Por favor ingresa un nombre', 'error');
                 return;
             }
             
@@ -1104,6 +1800,7 @@
             showNotification(`Usuario ${name} creado como ${role === 'maintenance' ? 'Mantenimiento' : 'Intendencia'}`);
             
             updateStats();
+            saveToStorage();
         }
         
         // Actualizar selects de usuarios
@@ -1146,16 +1843,110 @@
             });
         }
         
+        // ========== SISTEMA DE TAREAS ==========
+        // Agregar material a la tarea
+        function addMaterialToTask() {
+            if (items.length === 0) {
+                showNotification('Primero debes crear items en el inventario', 'error');
+                return;
+            }
+            
+            const materialsList = document.getElementById('taskMaterialsList');
+            const materialId = `material-${Date.now()}`;
+            
+            const materialElement = document.createElement('div');
+            materialElement.className = 'material-item';
+            materialElement.id = materialId;
+            materialElement.innerHTML = `
+                <div class="material-info">
+                    <select class="form-control material-select" onchange="updateMaterialQuantityOptions('${materialId}')">
+                        <option value="">Seleccionar material</option>
+                        ${items.map(item => `
+                            <option value="${item.id}" data-max="${item.currentStock}">${item.name} (Stock: ${item.currentStock})</option>
+                        `).join('')}
+                    </select>
+                </div>
+                <div class="material-quantity">
+                    <input type="number" class="quantity-input" value="1" min="1" max="1">
+                    <button class="btn btn-danger btn-sm" onclick="removeMaterial('${materialId}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            materialsList.appendChild(materialElement);
+            taskMaterials.push(materialId);
+        }
+        
+        // Actualizar opciones de cantidad según el material seleccionado
+        function updateMaterialQuantityOptions(materialId) {
+            const materialElement = document.getElementById(materialId);
+            const select = materialElement.querySelector('.material-select');
+            const quantityInput = materialElement.querySelector('.quantity-input');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (selectedOption && selectedOption.value) {
+                const maxQuantity = parseInt(selectedOption.getAttribute('data-max'));
+                quantityInput.max = maxQuantity;
+                // Si el valor actual es mayor que el máximo, ajustarlo al máximo
+                if (parseInt(quantityInput.value) > maxQuantity) {
+                    quantityInput.value = maxQuantity;
+                }
+            } else {
+                quantityInput.max = 1;
+            }
+        }
+        
+        // Eliminar material de la tarea
+        function removeMaterial(materialId) {
+            const materialElement = document.getElementById(materialId);
+            materialElement.remove();
+            taskMaterials = taskMaterials.filter(id => id !== materialId);
+        }
+        
         // Crear nueva tarea
         function createTask() {
-            const title = document.getElementById('taskTitle').value;
-            const description = document.getElementById('taskDescription').value;
+            const title = document.getElementById('taskTitle').value.trim();
+            const description = document.getElementById('taskDescription').value.trim();
             const assignee = document.getElementById('taskAssignee').value;
             
             if (!title || !assignee) {
                 showNotification('Por favor completa título y asignación', 'error');
                 return;
             }
+            
+            // Recopilar materiales seleccionados
+            const materials = [];
+            let hasErrors = false;
+            
+            taskMaterials.forEach(materialId => {
+                const materialElement = document.getElementById(materialId);
+                const select = materialElement.querySelector('.material-select');
+                const quantityInput = materialElement.querySelector('.quantity-input');
+                
+                if (select.value && quantityInput.value) {
+                    const item = items.find(i => i.id === select.value);
+                    if (item) {
+                        const quantity = parseInt(quantityInput.value);
+                        
+                        // Verificar stock suficiente
+                        if (quantity > item.currentStock) {
+                            showNotification(`Stock insuficiente para ${item.name}. Stock disponible: ${item.currentStock}`, 'error');
+                            hasErrors = true;
+                            return;
+                        }
+                        
+                        materials.push({
+                            itemId: item.id,
+                            itemName: item.name,
+                            quantity: quantity,
+                            unit: item.unit
+                        });
+                    }
+                }
+            });
+            
+            if (hasErrors) return;
             
             let assignedTo = [];
             if (assignee.startsWith('role_')) {
@@ -1174,6 +1965,8 @@
                     createdAt: new Date().toISOString(),
                     completed: false,
                     observations: '',
+                    photos: [],
+                    materials: [...materials], // Copiar materiales para cada tarea
                     createdBy: currentUser.id
                 };
                 
@@ -1184,11 +1977,14 @@
             document.getElementById('taskTitle').value = '';
             document.getElementById('taskDescription').value = '';
             document.getElementById('taskAssignee').value = '';
+            document.getElementById('taskMaterialsList').innerHTML = '';
+            taskMaterials = [];
             
             // Actualizar vistas
             renderAllTasks();
             renderRoleTasks();
             updateStats();
+            saveToStorage();
             
             // Mostrar notificación
             const assignedCount = assignedTo.length;
@@ -1259,15 +2055,51 @@
                 
                 const taskElement = document.createElement('div');
                 taskElement.className = `task-card ${task.completed ? 'completed' : ''}`;
+                
+                let materialsHtml = '';
+                if (task.materials && task.materials.length > 0) {
+                    materialsHtml = `
+                        <div class="task-observations">
+                            <strong>Materiales:</strong>
+                            <ul style="margin-top: 5px; padding-left: 20px;">
+                                ${task.materials.map(m => `<li>${m.quantity} ${m.unit} de ${m.itemName}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                let photosHtml = '';
+                if (task.photos && task.photos.length > 0) {
+                    photosHtml = `
+                        <div class="photo-section">
+                            <strong><i class="fas fa-camera"></i> Fotos adjuntas:</strong>
+                            <div class="photos-display">
+                                ${task.photos.map((photo, index) => `
+                                    <div class="photo-thumbnail">
+                                        <img src="${photo}" alt="Evidencia ${index + 1}" onclick="showPhotoModal('${photo}')">
+                                        <button class="photo-download" onclick="downloadPhoto('${photo}', '${task.title}-${index + 1}')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 taskElement.innerHTML = `
                     <h3 class="task-title">${task.title}</h3>
                     <p class="task-desc">${task.description}</p>
+                    
+                    ${materialsHtml}
                     
                     ${task.completed && task.observations ? `
                         <div class="task-observations">
                             <strong>Observaciones:</strong> ${task.observations}
                         </div>
                     ` : ''}
+                    
+                    ${photosHtml}
                     
                     <div class="task-meta">
                         <div class="task-assignee">
@@ -1321,10 +2153,43 @@
                 const taskElement = document.createElement('div');
                 taskElement.className = `task-card ${task.completed ? 'completed' : ''}`;
                 
+                let materialsHtml = '';
+                if (task.materials && task.materials.length > 0) {
+                    materialsHtml = `
+                        <div class="task-observations">
+                            <strong>Materiales:</strong>
+                            <ul style="margin-top: 5px; padding-left: 20px;">
+                                ${task.materials.map(m => `<li>${m.quantity} ${m.unit} de ${m.itemName}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                let photosHtml = '';
+                if (task.photos && task.photos.length > 0) {
+                    photosHtml = `
+                        <div class="photo-section">
+                            <strong><i class="fas fa-camera"></i> Fotos adjuntas:</strong>
+                            <div class="photos-display">
+                                ${task.photos.map((photo, index) => `
+                                    <div class="photo-thumbnail">
+                                        <img src="${photo}" alt="Evidencia ${index + 1}" onclick="showPhotoModal('${photo}')">
+                                        <button class="photo-download" onclick="downloadPhoto('${photo}', '${task.title}-${index + 1}')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 if (!task.completed) {
                     taskElement.innerHTML = `
                         <h3 class="task-title">${task.title}</h3>
                         <p class="task-desc">${task.description}</p>
+                        
+                        ${materialsHtml}
                         
                         <div class="task-meta">
                             <div class="task-assignee">
@@ -1344,9 +2209,35 @@
                         
                         <div id="obs-${task.id}" style="margin-top: 15px; display: none;">
                             <textarea id="obs-text-${task.id}" class="form-control" rows="2" placeholder="Agregar observaciones..."></textarea>
-                            <button class="btn btn-primary btn-sm" onclick="saveObservation('${task.id}')" style="margin-top: 8px;">
-                                <i class="fas fa-save"></i> Guardar
-                            </button>
+                            
+                            <div class="photo-section">
+                                <div class="section-title">
+                                    <i class="fas fa-camera"></i>
+                                    <h3>Evidencia Fotográfica</h3>
+                                </div>
+                                
+                                <div class="photo-upload-area" onclick="document.getElementById('photo-input-${task.id}').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Haz clic o arrastra fotos aquí</p>
+                                    <small>Máximo 5 fotos • Formatos: JPG, PNG</small>
+                                </div>
+                                
+                                <input type="file" id="photo-input-${task.id}" 
+                                       style="display: none;" 
+                                       multiple 
+                                       accept="image/*" 
+                                       onchange="handlePhotoUpload('${task.id}', this.files)">
+                                
+                                <div id="photo-preview-${task.id}" class="photo-preview">
+                                    <!-- Las previsualizaciones de fotos aparecerán aquí -->
+                                </div>
+                            </div>
+                            
+                            <div class="task-actions" style="margin-top: 20px;">
+                                <button class="btn btn-primary" onclick="saveTaskCompletion('${task.id}')">
+                                    <i class="fas fa-save"></i> Guardar Completación
+                                </button>
+                            </div>
                         </div>
                     `;
                 } else {
@@ -1354,11 +2245,15 @@
                         <h3 class="task-title">${task.title}</h3>
                         <p class="task-desc">${task.description}</p>
                         
+                        ${materialsHtml}
+                        
                         ${task.observations ? `
                             <div class="task-observations">
                                 <strong>Observaciones:</strong> ${task.observations}
                             </div>
                         ` : ''}
+                        
+                        ${photosHtml}
                         
                         <div class="task-meta">
                             <div class="task-assignee">
@@ -1414,10 +2309,43 @@
                 const taskElement = document.createElement('div');
                 taskElement.className = `task-card ${task.completed ? 'completed' : ''}`;
                 
+                let materialsHtml = '';
+                if (task.materials && task.materials.length > 0) {
+                    materialsHtml = `
+                        <div class="task-observations">
+                            <strong>Materiales:</strong>
+                            <ul style="margin-top: 5px; padding-left: 20px;">
+                                ${task.materials.map(m => `<li>${m.quantity} ${m.unit} de ${m.itemName}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                let photosHtml = '';
+                if (task.photos && task.photos.length > 0) {
+                    photosHtml = `
+                        <div class="photo-section">
+                            <strong><i class="fas fa-camera"></i> Fotos adjuntas:</strong>
+                            <div class="photos-display">
+                                ${task.photos.map((photo, index) => `
+                                    <div class="photo-thumbnail">
+                                        <img src="${photo}" alt="Evidencia ${index + 1}" onclick="showPhotoModal('${photo}')">
+                                        <button class="photo-download" onclick="downloadPhoto('${photo}', '${task.title}-${index + 1}')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 if (!task.completed) {
                     taskElement.innerHTML = `
                         <h3 class="task-title">${task.title}</h3>
                         <p class="task-desc">${task.description}</p>
+                        
+                        ${materialsHtml}
                         
                         <div class="task-meta">
                             <div class="task-assignee">
@@ -1437,9 +2365,35 @@
                         
                         <div id="obs-${task.id}" style="margin-top: 15px; display: none;">
                             <textarea id="obs-text-${task.id}" class="form-control" rows="2" placeholder="Agregar observaciones..."></textarea>
-                            <button class="btn btn-primary btn-sm" onclick="saveObservation('${task.id}')" style="margin-top: 8px;">
-                                <i class="fas fa-save"></i> Guardar
-                            </button>
+                            
+                            <div class="photo-section">
+                                <div class="section-title">
+                                    <i class="fas fa-camera"></i>
+                                    <h3>Evidencia Fotográfica</h3>
+                                </div>
+                                
+                                <div class="photo-upload-area" onclick="document.getElementById('photo-input-${task.id}').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Haz clic o arrastra fotos aquí</p>
+                                    <small>Máximo 5 fotos • Formatos: JPG, PNG</small>
+                                </div>
+                                
+                                <input type="file" id="photo-input-${task.id}" 
+                                       style="display: none;" 
+                                       multiple 
+                                       accept="image/*" 
+                                       onchange="handlePhotoUpload('${task.id}', this.files)">
+                                
+                                <div id="photo-preview-${task.id}" class="photo-preview">
+                                    <!-- Las previsualizaciones de fotos aparecerán aquí -->
+                                </div>
+                            </div>
+                            
+                            <div class="task-actions" style="margin-top: 20px;">
+                                <button class="btn btn-primary" onclick="saveTaskCompletion('${task.id}')">
+                                    <i class="fas fa-save"></i> Guardar Completación
+                                </button>
+                            </div>
                         </div>
                     `;
                 } else {
@@ -1447,11 +2401,15 @@
                         <h3 class="task-title">${task.title}</h3>
                         <p class="task-desc">${task.description}</p>
                         
+                        ${materialsHtml}
+                        
                         ${task.observations ? `
                             <div class="task-observations">
                                 <strong>Observaciones:</strong> ${task.observations}
                             </div>
                         ` : ''}
+                        
+                        ${photosHtml}
                         
                         <div class="task-meta">
                             <div class="task-assignee">
@@ -1469,7 +2427,8 @@
             });
         }
         
-        // Completar tarea
+        // ========== SISTEMA DE FOTOS ==========
+        // Completar tarea (mostrar formulario de observaciones y fotos)
         function completeTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (task) {
@@ -1479,23 +2438,640 @@
             }
         }
         
-        // Guardar observaciones
-        function saveObservation(taskId) {
+        // Manejar la subida de fotos
+        function handlePhotoUpload(taskId, files) {
+            const previewContainer = document.getElementById(`photo-preview-${taskId}`);
+            const task = tasks.find(t => t.id === taskId);
+            
+            if (!task.photos) task.photos = [];
+            
+            // Limitar a 5 fotos máximo
+            const currentCount = task.photos.length;
+            const remainingSlots = 5 - currentCount;
+            
+            if (files.length > remainingSlots) {
+                showNotification(`Solo puedes subir ${remainingSlots} foto(s) más`, 'error');
+                return;
+            }
+            
+            for (let i = 0; i < Math.min(files.length, remainingSlots); i++) {
+                const file = files[i];
+                
+                // Validar tipo de archivo
+                if (!file.type.startsWith('image/')) {
+                    showNotification('Solo se permiten archivos de imagen', 'error');
+                    continue;
+                }
+                
+                // Validar tamaño (máximo 2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    showNotification('La imagen no debe superar 2MB', 'error');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Agregar la foto al array de la tarea
+                    task.photos.push(e.target.result);
+                    
+                    // Actualizar la previsualización
+                    updatePhotoPreview(taskId);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Actualizar previsualización de fotos
+        function updatePhotoPreview(taskId) {
+            const previewContainer = document.getElementById(`photo-preview-${taskId}`);
+            const task = tasks.find(t => t.id === taskId);
+            
+            previewContainer.innerHTML = '';
+            
+            if (task.photos && task.photos.length > 0) {
+                task.photos.forEach((photo, index) => {
+                    const photoItem = document.createElement('div');
+                    photoItem.className = 'photo-item';
+                    photoItem.innerHTML = `
+                        <img src="${photo}" alt="Foto ${index + 1}">
+                        <button class="photo-remove" onclick="removePhoto('${taskId}', ${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    previewContainer.appendChild(photoItem);
+                });
+            }
+        }
+        
+        // Eliminar foto
+        function removePhoto(taskId, photoIndex) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task && task.photos) {
+                task.photos.splice(photoIndex, 1);
+                updatePhotoPreview(taskId);
+            }
+        }
+        
+        // Guardar completación de tarea con observaciones y fotos
+        function saveTaskCompletion(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (task) {
                 const observation = document.getElementById(`obs-text-${taskId}`).value;
+                
                 task.observations = observation;
                 task.completed = true;
                 task.completedAt = new Date().toISOString();
                 
+                // Si no hay fotos, inicializar el array vacío
+                if (!task.photos) {
+                    task.photos = [];
+                }
+                
+                // Descontar materiales del inventario
+                if (task.materials && task.materials.length > 0) {
+                    task.materials.forEach(material => {
+                        const item = items.find(i => i.id === material.itemId);
+                        if (item) {
+                            const previousStock = item.currentStock;
+                            item.currentStock -= material.quantity;
+                            
+                            // Registrar movimiento de inventario
+                            inventoryMovements.push({
+                                id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+                                itemId: item.id,
+                                type: 'out',
+                                quantity: material.quantity,
+                                previousStock: previousStock,
+                                newStock: item.currentStock,
+                                reason: 'task_consumption',
+                                taskId: taskId,
+                                notes: `Consumo por tarea: ${task.title}`,
+                                date: new Date().toISOString(),
+                                performedBy: currentUser.id
+                            });
+                        }
+                    });
+                }
+                
                 renderAllTasks();
                 renderRoleTasks();
                 updateStats();
+                updateInventoryStats();
+                renderItemsList();
+                renderMovementsTable();
+                saveToStorage();
                 
-                showNotification('Tarea marcada como completada');
+                showNotification('Tarea completada con evidencia fotográfica');
             }
         }
         
+        // Mostrar modal de foto
+        function showPhotoModal(photoSrc) {
+            document.getElementById('modalPhoto').src = photoSrc;
+            document.getElementById('photoModal').style.display = 'flex';
+        }
+        
+        // Ocultar modal de foto
+        function hidePhotoModal() {
+            document.getElementById('photoModal').style.display = 'none';
+        }
+        
+        // Descargar foto
+        function downloadPhoto(photoData, filename) {
+            // Convertir DataURL a Blob
+            const blob = dataURLToBlob(photoData);
+            const url = URL.createObjectURL(blob);
+            
+            // Crear enlace de descarga
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Limpiar
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+        
+        // Convertir DataURL a Blob
+        function dataURLToBlob(dataURL) {
+            const parts = dataURL.split(';base64,');
+            const contentType = parts[0].split(':')[1];
+            const raw = window.atob(parts[1]);
+            const rawLength = raw.length;
+            const uInt8Array = new Uint8Array(rawLength);
+            
+            for (let i = 0; i < rawLength; ++i) {
+                uInt8Array[i] = raw.charCodeAt(i);
+            }
+            
+            return new Blob([uInt8Array], { type: contentType });
+        }
+        
+        // ========== SISTEMA DE INVENTARIO ==========
+        // Abrir pestaña de inventario
+        function openInventoryTab(tabName) {
+            const tabs = document.querySelectorAll('.inventory-tab');
+            const contents = document.querySelectorAll('.inventory-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`.inventory-tab[onclick="openInventoryTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`inventory-${tabName}`).classList.add('active');
+            
+            if (tabName === 'summary') {
+                updateInventoryStats();
+            }
+        }
+        
+        // Crear categoría
+        function createCategory() {
+            const name = document.getElementById('categoryName').value.trim();
+            const description = document.getElementById('categoryDescription').value.trim();
+            const color = document.getElementById('categoryColor').value;
+            
+            if (!name) {
+                showNotification('Por favor ingresa un nombre para la categoría', 'error');
+                return;
+            }
+            
+            const newCategory = {
+                id: Date.now().toString(),
+                name: name,
+                description: description,
+                color: color,
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.id
+            };
+            
+            categories.push(newCategory);
+            
+            // Limpiar formulario
+            document.getElementById('categoryName').value = '';
+            document.getElementById('categoryDescription').value = '';
+            
+            // Actualizar vistas
+            renderCategoriesList();
+            updateCategorySelects();
+            updateInventoryStats();
+            saveToStorage();
+            
+            showNotification(`Categoría "${name}" creada correctamente`);
+        }
+        
+        // Renderizar lista de categorías
+        function renderCategoriesList() {
+            const container = document.getElementById('categoriesList');
+            container.innerHTML = '';
+            
+            if (categories.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-tags"></i>
+                        <p>No hay categorías creadas</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            categories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'card';
+                categoryCard.style.borderLeft = `4px solid ${category.color}`;
+                
+                // Contar items en esta categoría
+                const itemsInCategory = items.filter(item => item.categoryId === category.id).length;
+                
+                categoryCard.innerHTML = `
+                    <div class="card-header">
+                        <div class="section-title">
+                            <i class="fas fa-tag" style="color: ${category.color}"></i>
+                            <h2>${category.name}</h2>
+                        </div>
+                        <div>
+                            <button class="btn btn-danger btn-sm" onclick="deleteCategory('${category.id}')">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                    <p>${category.description}</p>
+                    <div class="task-meta">
+                        <span><strong>Items:</strong> ${itemsInCategory}</span>
+                        <span><strong>Creada:</strong> ${new Date(category.createdAt).toLocaleDateString()}</span>
+                    </div>
+                `;
+                container.appendChild(categoryCard);
+            });
+        }
+        
+        // Eliminar categoría
+        function deleteCategory(categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            const itemsInCategory = items.filter(item => item.categoryId === categoryId);
+            
+            if (itemsInCategory.length > 0) {
+                showNotification(`No se puede eliminar la categoría "${category.name}" porque tiene ${itemsInCategory.length} items asociados`, 'error');
+                return;
+            }
+            
+            if (confirm(`¿Estás seguro de que quieres eliminar la categoría "${category.name}"?`)) {
+                categories = categories.filter(c => c.id !== categoryId);
+                renderCategoriesList();
+                updateCategorySelects();
+                updateInventoryStats();
+                saveToStorage();
+                
+                showNotification(`Categoría "${category.name}" eliminada correctamente`);
+            }
+        }
+        
+        // Actualizar selects de categorías
+        function updateCategorySelects() {
+            const categorySelects = [
+                document.getElementById('itemCategory'),
+                document.getElementById('itemCategoryFilter')
+            ];
+            
+            categorySelects.forEach(select => {
+                // Limpiar opciones (excepto la primera)
+                while (select.options.length > 1) {
+                    select.remove(1);
+                }
+                
+                // Agregar categorías
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.textContent = category.name;
+                    select.appendChild(option);
+                });
+            });
+        }
+        
+        // Crear item
+        function createItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const description = document.getElementById('itemDescription').value.trim();
+            const categoryId = document.getElementById('itemCategory').value;
+            const sku = document.getElementById('itemSKU').value.trim();
+            const unit = document.getElementById('itemUnit').value.trim();
+            const stock = parseInt(document.getElementById('itemStock').value);
+            const minStock = parseInt(document.getElementById('itemMinStock').value);
+            const location = document.getElementById('itemLocation').value.trim();
+            
+            if (!name || !categoryId || !sku) {
+                showNotification('Por favor completa nombre, categoría y SKU', 'error');
+                return;
+            }
+            
+            // Verificar si ya existe un item con el mismo SKU
+            if (items.some(item => item.sku === sku)) {
+                showNotification('Ya existe un item con este SKU', 'error');
+                return;
+            }
+            
+            const newItem = {
+                id: Date.now().toString(),
+                name: name,
+                description: description,
+                categoryId: categoryId,
+                sku: sku,
+                unit: unit,
+                currentStock: stock,
+                minStock: minStock,
+                location: location,
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.id
+            };
+            
+            items.push(newItem);
+            
+            // Registrar movimiento de inventario si el stock inicial es mayor a 0
+            if (stock > 0) {
+                inventoryMovements.push({
+                    id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+                    itemId: newItem.id,
+                    type: 'in',
+                    quantity: stock,
+                    previousStock: 0,
+                    newStock: stock,
+                    reason: 'initial_stock',
+                    taskId: null,
+                    notes: 'Stock inicial',
+                    date: new Date().toISOString(),
+                    performedBy: currentUser.id
+                });
+            }
+            
+            // Limpiar formulario
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemDescription').value = '';
+            document.getElementById('itemCategory').value = '';
+            document.getElementById('itemSKU').value = '';
+            document.getElementById('itemUnit').value = '';
+            document.getElementById('itemStock').value = '0';
+            document.getElementById('itemMinStock').value = '0';
+            document.getElementById('itemLocation').value = '';
+            
+            // Actualizar vistas
+            renderItemsList();
+            updateInventoryStats();
+            renderMovementsTable();
+            saveToStorage();
+            
+            showNotification(`Item "${name}" creado correctamente`);
+        }
+        
+        // Renderizar lista de items
+        function renderItemsList() {
+            const container = document.getElementById('itemsList');
+            container.innerHTML = '';
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-boxes"></i>
+                        <p>No hay items en el inventario</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Aplicar filtro de categoría si existe
+            const categoryFilter = document.getElementById('itemCategoryFilter').value;
+            let filteredItems = items;
+            
+            if (categoryFilter) {
+                filteredItems = items.filter(item => item.categoryId === categoryFilter);
+            }
+            
+            if (filteredItems.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-boxes"></i>
+                        <p>No hay items en esta categoría</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredItems.forEach(item => {
+                const category = categories.find(c => c.id === item.categoryId);
+                const stockClass = item.currentStock === 0 ? 'stock-low' : 
+                                  item.currentStock <= item.minStock ? 'stock-low' : 'stock-ok';
+                
+                const itemCard = document.createElement('div');
+                itemCard.className = 'card';
+                itemCard.innerHTML = `
+                    <div class="card-header">
+                        <div class="section-title">
+                            <i class="fas fa-box"></i>
+                            <h2>${item.name}</h2>
+                        </div>
+                        <div>
+                            <button class="btn btn-warning btn-sm" onclick="editItem('${item.id}')">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                    <p>${item.description}</p>
+                    <div class="task-meta">
+                        <div>
+                            <span class="category-badge" style="background-color: ${category ? category.color : '#ccc'}; color: white;">
+                                ${category ? category.name : 'Sin categoría'}
+                            </span>
+                            <span><strong>SKU:</strong> ${item.sku}</span>
+                        </div>
+                        <div>
+                            <span><strong>Stock:</strong> <span class="${stockClass}">${item.currentStock} ${item.unit}</span></span>
+                            <span><strong>Mínimo:</strong> ${item.minStock} ${item.unit}</span>
+                        </div>
+                    </div>
+                    <div class="task-meta">
+                        <span><strong>Ubicación:</strong> ${item.location || 'No especificada'}</span>
+                        <span><strong>Creado:</strong> ${new Date(item.createdAt).toLocaleDateString()}</span>
+                    </div>
+                `;
+                container.appendChild(itemCard);
+            });
+        }
+        
+        // Filtrar items por categoría
+        function filterItems() {
+            renderItemsList();
+        }
+        
+        // Editar item (placeholder - en una implementación real abriría un modal de edición)
+        function editItem(itemId) {
+            showNotification('Funcionalidad de edición en desarrollo', 'error');
+        }
+        
+        // Eliminar item
+        function deleteItem(itemId) {
+            const item = items.find(i => i.id === itemId);
+            
+            if (confirm(`¿Estás seguro de que quieres eliminar el item "${item.name}"?`)) {
+                // Eliminar el item
+                items = items.filter(i => i.id !== itemId);
+                
+                // Eliminar movimientos relacionados
+                inventoryMovements = inventoryMovements.filter(m => m.itemId !== itemId);
+                
+                // Actualizar vistas
+                renderItemsList();
+                updateInventoryStats();
+                renderMovementsTable();
+                saveToStorage();
+                
+                showNotification(`Item "${item.name}" eliminado correctamente`);
+            }
+        }
+        
+        // Renderizar tabla de movimientos
+        function renderMovementsTable() {
+            const container = document.getElementById('movementsTable');
+            container.innerHTML = '';
+            
+            if (inventoryMovements.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <i class="fas fa-exchange-alt"></i>
+                            <p>No hay movimientos registrados</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Ordenar movimientos por fecha (más recientes primero)
+            const sortedMovements = [...inventoryMovements].sort((a, b) => 
+                new Date(b.date) - new Date(a.date)
+            );
+            
+            sortedMovements.forEach(movement => {
+                const item = items.find(i => i.id === movement.itemId);
+                const user = users.find(u => u.id === movement.performedBy);
+                const task = movement.taskId ? tasks.find(t => t.id === movement.taskId) : null;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(movement.date).toLocaleDateString()}</td>
+                    <td>${item ? item.name : 'Item eliminado'}</td>
+                    <td>
+                        <span class="role-badge ${movement.type === 'in' ? 'role-maintenance' : 'role-housekeeping'}">
+                            ${movement.type === 'in' ? 'Entrada' : 'Salida'}
+                        </span>
+                    </td>
+                    <td>${movement.quantity}</td>
+                    <td>${movement.previousStock}</td>
+                    <td>${movement.newStock}</td>
+                    <td>
+                        ${movement.reason === 'task_consumption' ? 
+                          `Consumo en tarea: ${task ? task.title : 'Tarea eliminada'}` : 
+                          movement.reason === 'initial_stock' ? 'Stock inicial' : 
+                          movement.reason === 'manual_adjustment' ? 'Ajuste manual' : 
+                          movement.reason === 'purchase' ? 'Compra' : movement.reason}
+                    </td>
+                    <td>${user ? user.name : 'Usuario eliminado'}</td>
+                `;
+                container.appendChild(row);
+            });
+        }
+        
+        // Actualizar estadísticas del inventario
+        function updateInventoryStats() {
+            document.getElementById('totalCategories').textContent = categories.length;
+            document.getElementById('totalItems').textContent = items.length;
+            
+            const lowStockItems = items.filter(item => item.currentStock > 0 && item.currentStock <= item.minStock).length;
+            const outOfStockItems = items.filter(item => item.currentStock === 0).length;
+            
+            document.getElementById('lowStockItems').textContent = lowStockItems;
+            document.getElementById('outOfStockItems').textContent = outOfStockItems;
+            
+            // Actualizar alertas de stock bajo
+            const alertsContainer = document.getElementById('lowStockAlerts');
+            alertsContainer.innerHTML = '';
+            
+            const criticalItems = items.filter(item => item.currentStock <= item.minStock)
+                                      .sort((a, b) => a.currentStock - b.currentStock);
+            
+            if (criticalItems.length === 0) {
+                alertsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>No hay alertas de stock bajo</p>
+                    </div>
+                `;
+            } else {
+                criticalItems.forEach(item => {
+                    const category = categories.find(c => c.id === item.categoryId);
+                    const alertElement = document.createElement('div');
+                    alertElement.className = 'material-item';
+                    alertElement.innerHTML = `
+                        <div class="material-info">
+                            <strong>${item.name}</strong>
+                            <span class="category-badge" style="background-color: ${category ? category.color : '#ccc'}; color: white;">
+                                ${category ? category.name : 'Sin categoría'}
+                            </span>
+                        </div>
+                        <div class="material-quantity">
+                            <span class="${item.currentStock === 0 ? 'stock-low' : 'stock-low'}">
+                                Stock: ${item.currentStock} ${item.unit}
+                            </span>
+                            <span>Mínimo: ${item.minStock} ${item.unit}</span>
+                        </div>
+                    `;
+                    alertsContainer.appendChild(alertElement);
+                });
+            }
+            
+            // Actualizar movimientos recientes
+            const recentMovementsContainer = document.getElementById('recentMovements');
+            recentMovementsContainer.innerHTML = '';
+            
+            const recentMovements = [...inventoryMovements]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+            
+            if (recentMovements.length === 0) {
+                recentMovementsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exchange-alt"></i>
+                        <p>No hay movimientos recientes</p>
+                    </div>
+                `;
+            } else {
+                recentMovements.forEach(movement => {
+                    const item = items.find(i => i.id === movement.itemId);
+                    const movementElement = document.createElement('div');
+                    movementElement.className = 'material-item';
+                    movementElement.innerHTML = `
+                        <div class="material-info">
+                            <strong>${item ? item.name : 'Item eliminado'}</strong>
+                            <span class="role-badge ${movement.type === 'in' ? 'role-maintenance' : 'role-housekeeping'}">
+                                ${movement.type === 'in' ? 'Entrada' : 'Salida'}
+                            </span>
+                        </div>
+                        <div class="material-quantity">
+                            <span>${movement.quantity} ${item ? item.unit : ''}</span>
+                            <small>${new Date(movement.date).toLocaleDateString()}</small>
+                        </div>
+                    `;
+                    recentMovementsContainer.appendChild(movementElement);
+                });
+            }
+        }
+        
+        // ========== ACTUALIZACIÓN DE ESTADÍSTICAS ==========
         // Actualizar estadísticas
         function updateStats() {
             document.getElementById('totalUsers').textContent = users.filter(u => u.role !== 'admin').length;
@@ -1503,74 +3079,6 @@
             document.getElementById('completedTasks').textContent = tasks.filter(t => t.completed).length;
             document.getElementById('pendingTasks').textContent = tasks.filter(t => !t.completed).length;
         }
-        
-        // Mostrar notificación
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                ${message}
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 10);
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
-        }
-        
-        // Agregar estilos para notificaciones
-        const notificationStyles = document.createElement('style');
-        notificationStyles.innerHTML = `
-            .notification {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: var(--radius-sm);
-                background-color: white;
-                box-shadow: var(--shadow-lg);
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                transform: translateX(150%);
-                transition: transform 0.3s ease;
-                z-index: 1000;
-            }
-            
-            .notification.show {
-                transform: translateX(0);
-            }
-            
-            .notification.success {
-                border-left: 4px solid var(--success);
-            }
-            
-            .notification.error {
-                border-left: 4px solid var(--danger);
-            }
-            
-            .notification i {
-                font-size: 20px;
-            }
-            
-            .notification.success i {
-                color: var(--success);
-            }
-            
-            .notification.error i {
-                color: var(--danger);
-            }
-        `;
-        document.head.appendChild(notificationStyles);
     </script>
 </body>
 </html>
